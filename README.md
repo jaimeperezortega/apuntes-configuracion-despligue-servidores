@@ -98,4 +98,35 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
 16. **cp** --> copiar/pegar archivos--> Ejemplo cp hello hola, me copia el contenido de hello y lo pone en un archivo que se llame hola
 17. **mv** --> me permite renombrar un archivo o mover un archivo o una carpeta (mv hola hello), renombro el archivo hola a hello
 18. **find** --> Es como el spotlight de linux. Busca un archivo por un nombre en una carpeta concreta
-19. 
+19. **man<command name>** --> Para consutar la documentación de un comando en concreto
+20. 20. **<command>--help** --> Para buscar información adicional sobre un comando en particular
+
+### Usuarios, grupos y permisos
+
+- Los usuarios pueden ser personas y servicios
+- Las cuentas de usuario, pueden pertenecer a uno o varios grupos
+- Hay unos grupos especiales de administrador (admin o sudo)
+- Suele haber una cuenta de administrador (root) pero está deshabilitado en UBUNTU para acceder como root
+- Cada archivo o carpeta pertenece a un usuario y a un grupo
+
+#### Tres tipos de acceso en Linux:
+  - Lectura
+  - Escritura y/o borrado
+  - Ejecución (para archivos o scripts ejecutables
+
+#### Tres niveles que definen los tipos de acceso:
+  - Propietario del archivo o carpeta
+  - Usuarios del mismo grupo del archivo o carpeta
+  - Otros usuarios fuera del grupo
+
+#### Ver los permisos de los diferentes ficheros
+- **ls -l** --> lrwxrwxrwx user group index.html (1º Si es un archivo pone un guión, si es una carpeta pone d y si es un acceso directo pone l, 2º permisos para el propietario / 3º permisos para otros usuarios del mismo grupo / 4º Permiso para otros usuarios)
+
+#### Modificar permisos de archivos y carpetas
+
+- **chmod "target"+-rwx"filename"** ---> Ejemplo: ( a = all, u=usuario, a = all, g= group) 
+ - Ejemplos:
+ - 1. chmod u+wrx backup -->Da(+) todos(rwx) los permisos para el propietario (u)
+ - 2. chmod a+x backup --> Da(+) permisos de ejecución (x) para todos (a)
+ - 3. chmod o+rw backup --> Quita (-) permisos de lectura y escritura (rw) a los otros usuarios (o)
+ - 
