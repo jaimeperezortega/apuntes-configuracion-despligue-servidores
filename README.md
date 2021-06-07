@@ -6,23 +6,26 @@
 
 - Copiar Dirección IP pública (en mi caso: 54.165.217.245)
 
+- Al detener o reiniciar la instancia AWS nos va a asignar una IP distinta a no ser que elijamos el servicio adicional de contratar una IP estática (elásticas según AWS)
+
 ##  LINUX
 
  ### Navegación
  
  1. **Entrar al servidor** : ssh ubuntu@"IP" (en mi caso ssh ubuntu@54.165.217.245)
- 2. **Entrar al servidor utilizando un par de claves** : ssh --i Desktop/web10.pem ubuntu@"IP" (en mi caso ssh ubuntu@54.165.217.245) --> Antes es necesario cambiar los permisos con el comando chmod 0664 Desktop/web10.pem (la clave 0600 puede ser diferente, hay que usar la que te de el servidor)
- 3. **Desconectar del servidor:** --> "logout", "exit" o "CTRL + D"
- 4. **Saber quien está conectado al servidor** --> who
- 5. **Fecha y hora del servidor** --> date
- 6. **Calendario** cal
- 7. **Ubicación** pwd
- 8. **Archivos que hay en la carpeta donde estoy** ls (en formato lista: ls-l)
- 9. **Moverse por el sistema:** cd (change directory) 
- 10. **Moverse al directorio superior** cd ..
- 11. **Ruta absoluta** Indico la ruta desde el comienzo del sistema de archivo (desde /)
- 12. **Ruta relativa** Indico la ruta desde donde estoy hasta el archivo o carpeta que quiero ir
- 13. **Limpiar la consola** clear
+ 2. **Entrar al servidor a través de la DNS** ssh ubuntu@"DNS" (en mi caso ec2-54-197-4-146.compute-1.amazonaws.com)
+ 3. **Entrar al servidor utilizando un par de claves** : ssh --i Desktop/web10.pem ubuntu@"IP" (en mi caso ssh ubuntu@54.165.217.245) --> Antes es necesario cambiar los permisos con el comando chmod 0664 Desktop/web10.pem (la clave 0600 puede ser diferente, hay que usar la que te de el servidor)
+ 4. **Desconectar del servidor:** --> "logout", "exit" o "CTRL + D"
+ 5. **Saber quien está conectado al servidor** --> who
+ 6. **Fecha y hora del servidor** --> date
+ 7. **Calendario** cal
+ 8. **Ubicación** pwd
+ 9. **Archivos que hay en la carpeta donde estoy** ls (en formato lista: ls-l)
+ 10. **Moverse por el sistema:** cd (change directory) 
+ 11. **Moverse al directorio superior** cd ..
+ 12. **Ruta absoluta** Indico la ruta desde el comienzo del sistema de archivo (desde /)
+ 13. **Ruta relativa** Indico la ruta desde donde estoy hasta el archivo o carpeta que quiero ir
+ 14. **Limpiar la consola** clear
  
 ### Carpetas del sistema
 
@@ -59,6 +62,36 @@ Contiene subdirectorios con ejecutables del sistema
  - /usr/bin: Ejecutables para cualquier usuario
  - /usr/lib: Librerías de programación (C/C++ habitualmente)
  - /usr/local : Archivos locales (desarrollados por tí)
+ - /usr/sbin : Ejecutables solo para administradores
+ - /ush/share : Datos compartidos (documentación)
+ - /usr/src : Código fuente del kernel de linux
+
+#### /var (Carpeta de varios)
+
+ - /var/log: archivos de log
+ - /var/mail: buzones de email de los usuarios
+ - /var/run: Descriptores de procesos o sockets
+ - /var/www: Archivos servidos por el servidor web
 
 
+### Gestión de archivos y directorios
 
+**Acceso directo a un directorio**
+La flechita después de bin indica que en ese directorio hay un acceso directo a usr/bin
+lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin 
+
+1. **Comando which** --> Indica cual es la ruta donde se encuentra ese archivo/programa. Por ejemplo **which ls** te indica que la ruta donde está ese archivo (en este caso programa) es /usr/bin/ls
+2. **mkdir** --> Crear carpetas (mk dir demo crea el directorio demo en el directorio desde donde estés ejecutando ese comando)
+3. **mkdir -p this/is/spartha** --> Con el modificador -p creamos un directorio dentro de una carpeta. En este caso hemos creado la carpeta spartha dentro de la carpeta is, a su vez, dentro de la carpeta this
+4. **rmdir** --> Borrar una carpeta (rmdir demo borra la carpeta demo). SOLO DEJA BORRAR UNA CARPETA SI ESTÁ VACÍA. 
+5. **rm** --> Borrar un fichero
+6. **rm -r** --> Borrar una carpeta y todo lo que hay dentro de ella (r --> recursivo) MUY UTILIZADO
+7. **rm -rf** --> Misma función pero forzado (El sistema no te va a preguntar si estás seguro de borrarlo) **¡¡¡PELIGRO DONDE UTILIZARLO!!!**
+8. **touch** --> Sirve para crear un archivo de texto vacío) --> En scripting suele utilizarse para crear un Flag
+9. **nano** --> Editar un archivo de texto con el editor nano
+10.**cat** --> Visualizar que hay en un archivo determinado
+11. **q** --> Salir cuando estás usando el comando less
+12. **head** --> Muestra solo las 10 primeras lineas de un archivo (Con el modificador -20,-30 le decimos cuales son las primeras lineas que queremos ver)
+13. **tail -f "nombredelarchivo"** Ves el contenido del fichero en tiempo real. Para salir hay que cancelar la ejecución del comando (CTR + C)
+14. **wc /direcciondel archivo** --> Cuenta el número de palabras y letras de ese documento
+15. **grep** ---> Sirve para buscar cosas dentro de ficheros Ejemplo si quiero buscar donde aparece "kernel" en el archivo: grep kernel /var/log/dmseg
