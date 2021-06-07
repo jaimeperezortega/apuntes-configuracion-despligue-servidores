@@ -94,4 +94,8 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
 12. **head** --> Muestra solo las 10 primeras lineas de un archivo (Con el modificador -20,-30 le decimos cuales son las primeras lineas que queremos ver)
 13. **tail -f "nombredelarchivo"** Ves el contenido del fichero en tiempo real. Para salir hay que cancelar la ejecución del comando (CTR + C)
 14. **wc /direcciondel archivo** --> Cuenta el número de palabras y letras de ese documento
-15. **grep** ---> Sirve para buscar cosas dentro de ficheros Ejemplo si quiero buscar donde aparece "kernel" en el archivo: grep kernel /var/log/dmseg
+15. **grep** ---> Sirve para buscar cosas dentro de ficheros Ejemplo si quiero buscar donde aparece "kernel" en el archivo: grep kernel /var/log/dmseg. Si por ejemplo quiero buscar el nombre de una funcion de JS en todos los archivos con extension .js (**grep loadAds *js**)
+16. **cp** --> copiar/pegar archivos--> Ejemplo cp hello hola, me copia el contenido de hello y lo pone en un archivo que se llame hola
+17. **mv** --> me permite renombrar un archivo o mover un archivo o una carpeta (mv hola hello), renombro el archivo hola a hello
+18. **find** --> Es como el spotlight de linux. Busca un archivo por un nombre en una carpeta concreta
+19. 
