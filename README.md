@@ -24,6 +24,41 @@
  12. **Ruta relativa** Indico la ruta desde donde estoy hasta el archivo o carpeta que quiero ir
  13. **Limpiar la consola** clear
  
-### Gestión de ficheros
+### Carpetas del sistema
 
-1. 
+#### /etc
+
+Contiene los ficheros de configuración del sistema. 
+
+Para buscar la configuración de algo, casi siempre **vamos a encontrarlo en la carpeta /etc**
+
+#### /home y /root
+
+Carpeta HOME de cada usuario del sistema:
+
+/home/goku
+/home/ubuntu
+/home/jaime
+
+Cuando nos conectamos por SSh, por defecto accedemos a nuestra carpeta /home
+
+El /root es la casa del superadministrador
+
+#### /sbin
+
+Archivos que solo los puede ejecutar el adminsitrador. Son archivos binarios
+
+#### /tmp
+
+Direcotio temporal donde se pueden almacenar archivos temporalmente
+
+#### /usr
+
+Contiene subdirectorios con ejecutables del sistema
+
+ - /usr/bin: Ejecutables para cualquier usuario
+ - /usr/lib: Librerías de programación (C/C++ habitualmente)
+ - /usr/local : Archivos locales (desarrollados por tí)
+
+
+
