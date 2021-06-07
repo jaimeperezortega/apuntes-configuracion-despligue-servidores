@@ -119,14 +119,22 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
   - Usuarios del mismo grupo del archivo o carpeta
   - Otros usuarios fuera del grupo
 
-#### Ver los permisos de los diferentes ficheros
+#### Ver los permisos de los diferentes ficheros
 - **ls -l** --> lrwxrwxrwx user group index.html (1º Si es un archivo pone un guión, si es una carpeta pone d y si es un acceso directo pone l, 2º permisos para el propietario / 3º permisos para otros usuarios del mismo grupo / 4º Permiso para otros usuarios)
 
-#### Modificar permisos de archivos y carpetas
+#### Modificar permisos de archivos y carpetas
 
 - **chmod "target"+-rwx"filename"** ---> Ejemplo: ( a = all, u=usuario, a = all, g= group) 
  - Ejemplos:
  - 1. chmod u+wrx backup -->Da(+) todos(rwx) los permisos para el propietario (u)
  - 2. chmod a+x backup --> Da(+) permisos de ejecución (x) para todos (a)
- - 3. chmod o+rw backup --> Quita (-) permisos de lectura y escritura (rw) a los otros usuarios (o)
- - 
+ - 3. chmod g+rx backup --> Da(+) permisos de lectura y ejecución (x) para todos los usuarios del grupo (g)
+ - 4. chmod o+rw backup --> Quita (-) permisos de lectura y escritura (rw) a los otros usuarios (o)
+ 
+ ### Crear un usuario
+ 
+ - **adduser "username"** --> Crear un usuario y un grupo con el mismo nombre del usuario y mete al usuario en dicho grupo. Esto lo registra en /etc/passwd y /etc/group. Para poder ejecutar este comando tengo que ser administrador, solo el administrador puede crear nuevos usuarios. **sudo "comando"** Al ajecutar algo con sudo delante, ese comando se ejecuta con permisos de administrador
+ - **deluser "username"** --> Borra un usuario
+ - **adduser "username" sudo** --> Añadimos un usuario con privilegios de administrador
+ - **addgroup "groupname"** --> Crear un nuevo grupo
+ - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
