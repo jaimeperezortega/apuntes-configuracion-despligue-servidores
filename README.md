@@ -8,6 +8,10 @@
 
 - Al detener o reiniciar la instancia AWS nos va a asignar una IP distinta a no ser que elijamos el servicio adicional de contratar una IP estática (elásticas según AWS)
 
+### Firewall
+
+Por defecto, AWS solo tiene abierto el puerto 22. Tendremos que abrir el puerto 80 (puerto por defecto http) para que nos permita acceder. En la pestaña de seguridad hay que modificar llas reglas de entradas, editando el grupo de seguridad --> Editar reglas de entrada --> agregar regla (HTTP / 0.0.0/0) Para que cualquier dirección IP se ùeda conectaralpuerto 80
+
 ##  LINUX
 
  ### Navegación
@@ -152,3 +156,71 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - Después de cambiar  la configuración RECARGAR EL SERVICIO (debemos actualizar en caliente su configuración), **OJO NO REINICIAR PORQUE NOS QUEDARÍAMOS SIN ACCESO AL SERVIDOR!!**
  - **sudo systemctl reload ssh** --> Coomando que utilizamos para controlar todos los servicios del sistema. En este caso queremos recargar el servidor - NO REINICIAR!!!- 
  - - Después de  hacer esto ya sí deberíamos ser capaces de entrar al servidor con la cuenta de otro usuario ((ahora ya nos pedirá la password)
+
+ ### Administrar permisos de otros usuarios
+ 
+ **chmod o+w hello** Le doy permiso a  todos los usuarios (o) para que escriban en el archivo hello
+ **chmod o-r hello** --> Le quito permiso de lectura a otros usuarios sobre el archivo hello
+ 
+ ### Cambiar el grupo de un archivo
+ 
+ **chgrp "grupo" "archivo"**
+ 
+ ### Cambiar el "propietario" de  un archivo (solo puede hacerlo el usuario administrador)
+ 
+ **sudo chown "nuevo propietario "archivo"
+ 
+ ### Eliminar un archivo
+ 
+ **rm "archivo** --> Es necesario tener permisos de escritura sobre ese archivo y la carpeta que lo contiene
+ 
+ ### Cambiar contraseña
+ 
+ **passwd** Para cambiar mi contraseña desde mi usuario
+ **sudo passwd "usuario**" ---< El administrador puede imponer la contraseña que quiera a cualquier usuario
+ 
+ ## Instalación y desistanlación de software en LINUX
+ 
+  - En las distribuciones basadas en Debian (como Ubuntu), se puede instalar y desisinatalr software a través del gestor de paquetes : **apt-get**
+  - Este gestor se descarga paquetes ya compilados desde internet para tu distribución y los inatala en el sistema (descargando también otras dependencias si hiciera falta).
+  - 
+  - **apt-get install "package"** --> Instalar el paquete
+  - 
+ 
+ 
+ ##  Nginx
+ 
+ - **Instalar  ngnix** -- > sudo apt install nginx (Si no funciona bien hacer antes sudo apt update)
+ - **Comprobar si se está ejecutando** --> sudo service nginx status / sudo systemctl status nginx
+ - **Recargar Nginx** --> sudo service nginx reload
+ - **Parar nginx** --> sudo systemctl stop nginx
+ - **Arrancar nginx** --> sudo systemctl start nginx
+ 
+ ### Configuración de Nginx
+ 
+ - El fichero de configuración está  en: **/etc/nginx/nginx/conf**
+ - En **/etc/nginx/conf.d/** podemos incluir configuración personalizada que sobreescriba parámetros por defecto (si no queremos tocar el /etc/nginx/nginx/conf
+
+ **nginx.conf**
+ 
+    **user www-data** --> Usuario que ejecuta el proceso nginx
+    **worker_processes 4** --> Tantos como cores tenga el servidor
+    **pid /run/nginx.pid;**
+    
+    events {
+     
+      worker_connections 768; --> Máximas conexiones por worker
+      # multi_accept on; Aceptar más de una conexión nueva ala vez
+    
+    }
+    
+
+ ### Configuración de nuesttros sitios web
+ 
+ - Con una sola instalación, podemos dar servicio  a varios dominios o subdominios
+
+- En **/etc/nginx/sites-available/** podemos incluir configuración de  otros sitios que queramos configurar
+
+- Una vez configurados, **debemos hacer un acceso directo (ln -s) del archivo a /etc/nginx/sites-enabled/** para que nginx los sirva.
+ 
+ 
