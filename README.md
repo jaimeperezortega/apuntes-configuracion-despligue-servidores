@@ -138,3 +138,15 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **adduser "username" sudo** --> Añadimos un usuario con privilegios de administrador
  - **addgroup "groupname"** --> Crear un nuevo grupo
  - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
+ 
+ ### Conectarse al servidor con contraseña desde un usuario distinto a Ubuntu
+ 
+ Por defecto aws no permite que un usuario que no sea Ubuntu acceda con una contraseña. Hay que modificar la configuración en etc desde el super usuario Ubuntu
+ 
+ - En la carpeta ssh, hay varios archivos config. Commo nosotros queremos tocar el fichero de configuración del servidor será (sshd_config). La d es de daemon.
+ - **nano sshd_config** --> WARNING!!!! OPERACIÓN DELICADA --> Aquí cambiamos la configuración del servidor ssh. Para poder modificar ese archivo hay que agregar sudo al comando para tener permisos de administrador . Donde pone PasswordAuthentication no lo cambio por "yes"
+ - Despué
+ - **nano sshd_config** --> WARNING!!!! OPERACIÓN DELICADA --> Aquí cambiamos la configuración del servidor ssh. Para poder modificar ese archivo hay que agregar sudo al comando para tener permisos de administrador . Donde pone PasswordAuthentication no lo cambio por "yes"
+ - Después de cambiar  la configuración RECARGAR EL SERVICIO (debemos actualizar en caliente su configuración), **OJO NO REINICIAR PORQUE NOS QUEDARÍAMOS SIN ACCESO AL SERVIDOR!!**
+ - **sudo systemctl reload ssh** --> Coomando que utilizamos para controlar todos los servicios del sistema. En este caso queremos recargar el servidor - NO REINICIAR!!!- 
+ - - Después de  hacer esto ya sí deberíamos ser capaces de entrar al servidor con la cuenta de otro usuario ((ahora ya nos pedirá la password)
