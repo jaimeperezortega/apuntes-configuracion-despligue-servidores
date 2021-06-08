@@ -147,6 +147,8 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **nano sshd_config** --> WARNING!!!! OPERACIÓN DELICADA --> Aquí cambiamos la configuración del servidor ssh. Para poder modificar ese archivo hay que agregar sudo al comando para tener permisos de administrador . Donde pone PasswordAuthentication no lo cambio por "yes"
  - Despué
  - **nano sshd_config** --> WARNING!!!! OPERACIÓN DELICADA --> Aquí cambiamos la configuración del servidor ssh. Para poder modificar ese archivo hay que agregar sudo al comando para tener permisos de administrador . Donde pone PasswordAuthentication no lo cambio por "yes"
+
+ ### Recargar el servidor ssh
  - Después de cambiar  la configuración RECARGAR EL SERVICIO (debemos actualizar en caliente su configuración), **OJO NO REINICIAR PORQUE NOS QUEDARÍAMOS SIN ACCESO AL SERVIDOR!!**
  - **sudo systemctl reload ssh** --> Coomando que utilizamos para controlar todos los servicios del sistema. En este caso queremos recargar el servidor - NO REINICIAR!!!- 
  - - Después de  hacer esto ya sí deberíamos ser capaces de entrar al servidor con la cuenta de otro usuario ((ahora ya nos pedirá la password)
