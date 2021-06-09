@@ -267,3 +267,8 @@ server {
 
 }
 
+  - Para poder aplicar este archivo de configutación, hay que crear un acceso directo a este archivo en sites-enabled
+  - **sudo ln -s "meter la ruta completa de origen(/etc/nginx/sites-available/nodepopconfig" "meter la ruuta completa de destino(/etc/nginx/sites-enabled/nodepopconfig"** --> Para crear un acceso directo en sites-enabled de  nuestro archivo de configuracion creado en sites available
+
+
+
