@@ -142,6 +142,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **adduser "username" sudo** --> Añadimos un usuario con privilegios de administrador
  - **addgroup "groupname"** --> Crear un nuevo grupo
  - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
+ - **sudo chown -R web:web /home/web/nodepop** --> Cambiar el dueño de una carpeta o fichero (en este caso el dueño de la carpeta nodepop pasa a ser el usuario web) 
  - - **sudo passwd -l "usuario** --> Bloquear a un usuario para que ya no pueda acceder a nuestro  sistema
  
  ### Conectarse al servidor con contraseña desde un usuario distinto a Ubuntu
@@ -238,3 +239,31 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - En la terminal, ubicado en la carpeta donde se encuentre el repo de React lo primero que hay que hacer es un build de React porque antes de poner una aplicación en producción hay que hacer un build primero fuera del servidor para luego subir al servidor solo los archivos de la carpeta build
  - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi (En una aplicación debbotstrap por ejemplo la carpeta que hemos tenido que desplegar es dist)
  -  **scp "origen" "destino"** Comando para copiar por ssh. Ejemplo (scp -r -i ~/Desktop/web10.pem build ubuntu@54.197.4.146:~/)Esto indica el HOME del usuario (~/)
+
+- Es una buena práctica tener tantos usuarios como webs o aplicaciones tengas desplegadas
+
+
+### Crear un sitio nuevo de NGINX desde cero
+
+- En **etc/sites-available** --> Los fichheros de configuración siempre  los creamos en esta carpeta. Una vez  creado el fiichero en esta carpeta, para que ese sitio comience a estar activo, el sitio tiene que estar en la carpeta de sites-enabled. Se podríacopiar el archivo de sites available a sites enabled. El problema de eso es que si cambio la configuración se pueden desincronizar los archivos. Por eso la buena práctica es crear un acceso directo en sites-enabled y así están siempre sincronizados.
+- Creamos en sites-avaibalbe un fichero con **sudo nano nodepopconfig**
+server { 
+
+        # Puerto de escucha
+        listen 80;
+
+        # En qué carpeta tiene que buscar los archivos de la web
+        root /home/web/nodepop
+
+        # Indicar qué  archivos actuan como indice                                   
+        index index.html;
+
+        #Cuando la ruta empiece  por /, intenta buscar el archivo que te piden, y si no, 404
+        location / { 
+                try_files $uri $uri/ /=404;
+
+                # Busca la uri que te pidan, si no encuentras la  uri busca esa carpeta y si no la encuentra tamppoco, de>
+        }
+
+}
+
