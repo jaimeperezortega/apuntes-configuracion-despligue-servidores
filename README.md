@@ -142,6 +142,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **adduser "username" sudo** --> Añadimos un usuario con privilegios de administrador
  - **addgroup "groupname"** --> Crear un nuevo grupo
  - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
+ - - **sudo passwd -l "usuario** --> Bloquear a un usuario para que ya no pueda acceder a nuestro  sistema
  
  ### Conectarse al servidor con contraseña desde un usuario distinto a Ubuntu
  
@@ -223,4 +224,17 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
 
 - Una vez configurados, **debemos hacer un acceso directo (ln -s) del archivo a /etc/nginx/sites-enabled/** para que nginx los sirva.
  
+ ### Despliegue de sitios web
+ 
+ - Es necesario copiar todo el contenido de la carpeta "dist" y pegarlo en el directorio "html" **cp -rf startbootstrap-stylish-portfolio/dist/* html**
+ - Se trata de copiar todo el contenido que hay en la carpeta dist (que está  diseñada para contener tofos los ficheros necesarios para el despliegue) en la carpeta de html que es desde la que sirve el contenido ngnix.
+ - Es una buena práctica en los archivos de configuración  **/etc/nginx/sites-enabled**  poner un acceso directo a **sites-available/default**
+ - **sudo nano /etc/nginx/sites-available/default t** ---> Para poder modificar este archivo, hay que hacerlo con permisos de administrador. Cambiamos a usuario ubuntu y con el comando sudo En este archivo root apunta por defecto a /var/www/html. Comentamos esa línea y lo sustituimos por root /home/web/html
+ - Después de hacer ese cambio en el archivode configuración es necesario recargar nginx. Antes de hacerlo  Nginx tiene un comprobador de configuración muy útil **sudo nginx -t** que debería confirmar que la syntax es ok y la configuración es succesful. Si hay algun error, te  indica la linea en la que está y puedes  volver a editar el fichero para arreglaro
+ - **sudo service nginx reload** --> Para recargar nginx
+ 
+ ### Desplegar un aplicación de React
+ 
+ - En la terminal, ubicado en la carpeta donde se encuentre el repo de React lo primero que hay que hacer es un build de React porque antes de poner una aplicación en producción hay que hacer un build primero fuera del servidor para luego subir al servidor solo los archivos de la carpeta build
+ - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi
  
