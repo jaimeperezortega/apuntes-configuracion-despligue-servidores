@@ -236,5 +236,5 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  ### Desplegar un aplicación de React
  
  - En la terminal, ubicado en la carpeta donde se encuentre el repo de React lo primero que hay que hacer es un build de React porque antes de poner una aplicación en producción hay que hacer un build primero fuera del servidor para luego subir al servidor solo los archivos de la carpeta build
- - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi
- 
+ - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi (En una aplicación debbotstrap por ejemplo la carpeta que hemos tenido que desplegar es dist)
+ -  **scp "origen" "destino"** Comando para copiar por ssh. Ejemplo (scp -r -i ~/Desktop/web10.pem build ubuntu@54.197.4.146:~/)Esto indica el HOME del usuario (~/)
