@@ -12,6 +12,11 @@
 
 Por defecto, AWS solo tiene abierto el puerto 22. Tendremos que abrir el puerto 80 (puerto por defecto http) para que nos permita acceder. En la pestaña de seguridad hay que modificar llas reglas de entradas, editando el grupo de seguridad --> Editar reglas de entrada --> agregar regla (HTTP / 0.0.0/0) Para que cualquier dirección IP se ùeda conectaralpuerto 80
 
+### IP FIJA EN AWS
+
+En redes y seguridad --> Direcciones IP elasticas --> Asignar IP elástica ---> Asoiarla a una de mis instancias
+IMPORTANTÍSIMO: HAY QUE LIBERAR ESTA IP ELÁSTICA CUANDO ME CARGUE LA INSTANCIA (LA BASE DE DATOS LO HACE AUTOMATICAMENTE PERO NO LA IP ELASTICA Y MME COSTARÍA DINERO)
+
 ##  LINUX
 
  ### Navegación
@@ -305,6 +310,10 @@ server {
 }
 
 ### IMPORTANTE DEJAR SIEMPRE DOCUMENTADO COMO SE DESPLIEGA UNA APLICACIÓN . SI ES MUY COMPLICADO ES MEJOR INCLUSO CREAR UN SCRIPT QUE LO HAGA TODO
+
+## DESPLEGAR APLICACIONES DE NODE
+
+Es necesario que cuando desplegamos una aplicación de node en un servidor, utilizar una herramienta que es un gestor de procesos que está vigilando que todos los procesos que yo le indique estén arrancados. En el momento que detecta que un proceso está caido lo vuelve a arrancar de inmediato.
 
 
 
