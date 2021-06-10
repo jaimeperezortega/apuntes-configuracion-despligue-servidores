@@ -149,6 +149,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
  - **sudo chown -R web:web /home/web/nodepop** --> Cambiar el dueño de una carpeta o fichero (en este caso el dueño de la carpeta nodepop pasa a ser el usuario web) 
  - - **sudo passwd -l "usuario** --> Bloquear a un usuario para que ya no pueda acceder a nuestro  sistema
+ - **Cambiar usuario --> sudo -u "nombredelusuario"
  
  ### Conectarse al servidor con contraseña desde un usuario distinto a Ubuntu
  
