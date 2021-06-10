@@ -238,6 +238,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  
  - En la terminal, ubicado en la carpeta donde se encuentre el repo de React lo primero que hay que hacer es un build de React porque antes de poner una aplicación en producción hay que hacer un build primero fuera del servidor para luego subir al servidor solo los archivos de la carpeta build
  - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi (En una aplicación debbotstrap por ejemplo la carpeta que hemos tenido que desplegar es dist)
+ - **PUBLIC_URL=/ npm run build** --> Tenemos que hacer el build de la aplicación de React publicando esta variable de entorno para que luego funcione bien en ningx
  -  **scp "origen" "destino"** Comando para copiar por ssh. Ejemplo (scp -r -i ~/Desktop/web10.pem build ubuntu@54.197.4.146:~/)Esto indica el HOME del usuario (~/)
 
 - Es una buena práctica tener tantos usuarios como webs o aplicaciones tengas desplegadas
@@ -269,6 +270,43 @@ server {
 
   - Para poder aplicar este archivo de configutación, hay que crear un acceso directo a este archivo en sites-enabled
   - **sudo ln -s "meter la ruta completa de origen(/etc/nginx/sites-available/nodepopconfig" "meter la ruuta completa de destino(/etc/nginx/sites-enabled/nodepopconfig"** --> Para crear un acceso directo en sites-enabled de  nuestro archivo de configuracion creado en sites available
+  - **Comprobar que el archivo es correcto con sudo nginx -t**
+  - **Recargamos el servidor** sudo service nginx reload
+  - **Cambiar laconfiguración de default server en el archivo default y ponerla en el nuevo que hemos creado**
+
+
+### Configuración de nginx para que funcionen las apps de React con React Router 
+
+server {
+
+        # Configuro este archivo para que responda a la DNS de amazon:
+        server_name ec2-54-197-4-146.compute-1.amazonaws.com;
+
+        # Puerto de escucha
+        listen 80;
+
+        # En qué carpeta tiene que buscar los archivos de la web
+        root /home/web/nodepop;
+
+        # Indicar qué  archivos actuan como indice
+        index index.html;
+
+        #Cuando la ruta empiece  por /, intenta buscar el archivo que te piden, y si no, 404
+        location / {
+                ##try_files $uri $uri/ /=404;
+
+
+        # Busca la uri que te pidan, si no encuentras la  uri busca esa carpeta y si no la encuentra tamppoco, devuelve un 404
+
+        # Configuración para app React con React Router
+        try_files $uri $uri/ /index.html;
+        }
+
+}
+
+### IMPORTANTE DEJAR SIEMPRE DOCUMENTADO COMO SE DESPLIEGA UNA APLICACIÓN . SI ES MUY COMPLICADO ES MEJOR INCLUSO CREAR UN SCRIPT QUE LO HAGA TODO
+
+
 
 
 
