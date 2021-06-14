@@ -149,7 +149,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **adduser "usuario" "groupname"** --> Para añadir un usuario a un grupo
  - **sudo chown -R web:web /home/web/nodepop** --> Cambiar el dueño de una carpeta o fichero (en este caso el dueño de la carpeta nodepop pasa a ser el usuario web) 
  - - **sudo passwd -l "usuario** --> Bloquear a un usuario para que ya no pueda acceder a nuestro  sistema
- - **Cambiar usuario --> sudo -u "nombredelusuario"
+ - **Cambiar usuario** --> sudo -u "nombredelusuario" -i
  
  ### Conectarse al servidor con contraseña desde un usuario distinto a Ubuntu
  
@@ -316,7 +316,40 @@ server {
 
 Es necesario que cuando desplegamos una aplicación de node en un servidor, utilizar una herramienta que es un gestor de procesos que está vigilando que todos los procesos que yo le indique estén arrancados. En el momento que detecta que un proceso está caido lo vuelve a arrancar de inmediato.
 
+#### Gestores de procesos:
+
+- Supervisor (hecho en Python)
+- PM2
+- Circus (hecho en Pyhton)
+
+Para que mi aplicación esté funcionando de manera autónoma sin tener que estar yo conectandome y haceer el npm start vamos a utilizar **SUPERVISOR** que es un gestor de procesos que se encarga de monitorizar que la aplicación esté corriendo, y si no es así, activarla.
+
+### Pasos para desplegar una aplicación en Node
+
+ 1. **Crear un usuario para la aplicación** --> sudo adduser "nombredeusuarioquevaacontrolaresaaplicacion"
+ 2. **Bloqueamos la cuenta de ese usuario** --> passwd -l "nombredeusuarioquevaacontrolaresaaplicacion"
+ 3. **Convertirnos en ese usuario "dueño" de esa aplicación** ---> sudo -u "nombredeusuarioquevaacontrolaresaaplicacion" -i
+ 4. **Instalar nvm para ese usuario para instalar la versión de node que yo quiera** ---> curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+5. **Salir del usuario dueño de la aplicación**
+6. **Volver a aconvertirse en el usuario dueño de laaplicación**
+7. **Inicar nvm** --> nvm
+8. **Instalar laúltima vversión de node LTS (o la que nos convenga según las necesidades de la aplicación** ---> nvm install --lts
+9. **Comprobamos que tenemos instalado node y qué versión** ---> node --version
+10. **Clonar el repositorio de la aplicación que queramos instalar** ---> git clone https://github.com/jaimeperezortega/recuperacion-practica-backend-avanzado2.git
+11. **Instalar las dependencias del repo** ---> npm install
+12. **Ejecutar script para arrancarla aplicación** --> npm start / npm run dev (**SI NECESITA CONECTARSE A UNA BASE DE DATOS, HABRÁ QUE INSTALAR ANTES MONGO**)
+13. **Habilitar el cortafuegos para que abra el puerto en el que está corriendo la aplicación (en mi caso puerto 3001)** --> Security --> Security Groups --> Editar reglas de entrada  --> Añadir regla --> Puerto TC personalizado --> Puerto 3001
+14. **Comprobar que laaplicación está desplegada** --> URL:3001
 
 
 
+### INSTALAR SUPERVISOR PARA NO NECESITAR ESTAR HACIENDO NPM START PARA EJCUTAR LA APLICACIÓN
+
+Para que mi aplicación esté funcionando de manera autónoma sin tener que estar yo conectandome y haceer el npm start vamos a utilizar **SUPERVISOR** que es un gestor de procesos que se encarga de monitorizar que la aplicación esté corriendo, y si no es así, activarla.
+- **sudo apt install supervisor** ---> Se encarga de instalar supervisor en el sistema. El problema de instalar algo a ttravés de apt es que se va a instalar la versión de ese software que esté en el "app store" de ubuntu
+- **Crear un fichero de configuración en /etc/supervisor/conf.d/** --> Lo ideal es crear un archivo por programa 
+
+## PAQUETES "OBLIGATORIOS" PARA INSTALAR SIEMPRE  QUE SE VAYA A INSTALAR NODE  EN UNA MÁQUINA PARA EVITAR CONFLICTOS DE DEPENDENCIAS
+
+**sudo apt install build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev python3** ---> Instala ciertas librerías que son requeridas muy frecuentemente por otras librerías útiles 
 
