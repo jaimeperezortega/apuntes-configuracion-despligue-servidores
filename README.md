@@ -337,17 +337,59 @@ Para que mi aplicación esté funcionando de manera autónoma sin tener que esta
 9. **Comprobamos que tenemos instalado node y qué versión** ---> node --version
 10. **Clonar el repositorio de la aplicación que queramos instalar** ---> git clone https://github.com/jaimeperezortega/recuperacion-practica-backend-avanzado2.git
 11. **Instalar las dependencias del repo** ---> npm install
-12. **Ejecutar script para arrancarla aplicación** --> npm start / npm run dev (**SI NECESITA CONECTARSE A UNA BASE DE DATOS, HABRÁ QUE INSTALAR ANTES MONGO**)
+12. **Ejecutar script para arrancarla aplicación ppara comprobar que funciona** --> npm start  (**SI NECESITA CONECTARSE A UNA BASE DE DATOS, HABRÁ QUE INSTALAR ANTES MONGO**)
 13. **Habilitar el cortafuegos para que abra el puerto en el que está corriendo la aplicación (en mi caso puerto 3001)** --> Security --> Security Groups --> Editar reglas de entrada  --> Añadir regla --> Puerto TC personalizado --> Puerto 3001
-14. **Comprobar que laaplicación está desplegada** --> URL:3001
-
-
+14. **Comprobar que la aplicación está desplegada** --> URL:3001
 
 ### INSTALAR SUPERVISOR PARA NO NECESITAR ESTAR HACIENDO NPM START PARA EJCUTAR LA APLICACIÓN
+
+1. **Instalar supervisor**--> sudo apt install supervisor
+2. **Comprobar status de supervisor** --> sudo service supervisor status
+3. **Crear un fichero de configuración** --> En la ruta /etc/supervisor/conf.d/ crear un fichero de configuración con el nombre que quieras pero con extensión .conf (sudo nano nodepop.conf)
+   [program:nodepop]
+   command=/home/nodepop/.nvm/versions/node/v14.17.0/bin/node (**fichero que ejecuta el arranque de la aplicación-- se puede buscar con el comando which node**)
+   user=nodepop (**usuario dueño de esa aplicación**)
+   directory=/home/nodepop/recuperacion-practica-backend-avanzado2 (**directorio donde está instalada la aplicación**)
+   autostart=true
+   autorestart=true
+ 3. **Recargar supervisor** --> sudo service supervisor force-reload // sudo systemctl reload supervisor
+
+#### Comando top (El  Ctrl + Alt + Supr de Linux)
+Muestra en tiempo real información delos procesos ordenados por conaaumo de CPU (de mayor a menor)
+
+####  Comando ps aux
+
+Para ver todos los procesos en ejecución con mucha información
+
+**Buscar un proceso en concreto** --> ps aux | grep "comando"
+
+####  Comando para matar un proceso sudo kill "pid"
 
 Para que mi aplicación esté funcionando de manera autónoma sin tener que estar yo conectandome y haceer el npm start vamos a utilizar **SUPERVISOR** que es un gestor de procesos que se encarga de monitorizar que la aplicación esté corriendo, y si no es así, activarla.
 - **sudo apt install supervisor** ---> Se encarga de instalar supervisor en el sistema. El problema de instalar algo a ttravés de apt es que se va a instalar la versión de ese software que esté en el "app store" de ubuntu
 - **Crear un fichero de configuración en /etc/supervisor/conf.d/** --> Lo ideal es crear un archivo por programa 
+
+### NGINX COMO PROXY INVERSO
+
+Permire a máquinas desde fuera acceder a recursos de nuesto servidor. En funcion del server_name que le pongamos a cada aplicación, nginx redigirá  las peticiones con ese nombre al puerto correspondiente. De manera que los usuarios en función del dominio que entren no tienen que saber el puerto al que tienen que acceder sino que nginx se encarga de enrutarlo en funcion del nombre del dominio.
+
+#### Fichero de configuración de sitios 
+
+  server {
+  
+    location ~ ^/(css/|img/|js/|sounds/) {
+    root /var/www/app/public;
+    access_log off;
+    expires max;
+   }
+   
+   location / {
+    proxy_set_header Host $http_host;
+    proxy_pass http://127.0.0.1:3000;
+    proxy_redirect off;
+   }
+  } 
+  
 
 ## PAQUETES "OBLIGATORIOS" PARA INSTALAR SIEMPRE  QUE SE VAYA A INSTALAR NODE  EN UNA MÁQUINA PARA EVITAR CONFLICTOS DE DEPENDENCIAS
 
