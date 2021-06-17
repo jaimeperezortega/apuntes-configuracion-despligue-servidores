@@ -323,7 +323,15 @@ server {
 6. **sudo systemctl status mongod** --> Para comprobar que mongo está arrancado (debe aparecer active ruunning)
 7. **sudo systemctl enable mongod** --> Para asegurarse de que mongod arranca solo cuando se reinicia el sistema 
                 
+### INSTALAR CLIENTE DE MONGO
+https://www.mongodb.com/try/download/community
 
+1. Descargar el paquete ---> **Ubuntu 20.04 y shell(deb)
+2. **wget https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-amd64/mongodb-org-shell_4.4.6_amd64.deb**
+3. **sudo dpkg -i mongodb-org-shell_4.4.6_amd64.deb** --> Instalamos el cliente de mongo
+4. **mongo --version** --> Confirma que el cliente mongo está instalado con la versión que sea
+5. **mongo** ---> Con este comando utilizamos el cliente para conectar ala base de datod de mongo. Desde aquí podemos ponernos a hacer queries
+6. **exit** --> Para sallir del cliente de mongo
 
 ## DESPLEGAR APLICACIONES DE NODE
 
