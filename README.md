@@ -246,6 +246,7 @@ lrwxrwxrwx   1 root root     7 Apr 30 23:15 bin -> usr/bin
  - **npm run build** --> Me crea una carpeta build en el repo de React que quiera desplegar en el servidor y esa es la carpeta que debo mover ahi (En una aplicación debbotstrap por ejemplo la carpeta que hemos tenido que desplegar es dist)
  - **PUBLIC_URL=/ npm run build** --> Tenemos que hacer el build de la aplicación de React publicando esta variable de entorno para que luego funcione bien en ningx
  -  **scp "origen" "destino"** Comando para copiar por ssh. Ejemplo (scp -r -i ~/Desktop/web10.pem build ubuntu@54.197.4.146:~/)Esto indica el HOME del usuario (~/)
+ -  Desde la carpeta donde se encuentra la carpeta build --> **scp -r -i ~/Desktop/web10.pem build ubuntu@50.17.106.193:~/**
 
 - Es una buena práctica tener tantos usuarios como webs o aplicaciones tengas desplegadas
 
@@ -311,6 +312,18 @@ server {
 }
 
 ### IMPORTANTE DEJAR SIEMPRE DOCUMENTADO COMO SE DESPLIEGA UNA APLICACIÓN . SI ES MUY COMPLICADO ES MEJOR INCLUSO CREAR UN SCRIPT QUE LO HAGA TODO
+
+## INSTALAR MONGO
+
+1. Descargar el paquete de  instalación para Ubuntu (https://www.mongodb.com/try/download/community) ---> Elegir **Ubuntu 20.04** y **Server**
+2. **wget https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-amd64/mongodb-org-server_4.4.6_amd64.deb** 
+3. **sudo dpkg -i mongodb-org-server_4.4.6_amd64.deb** --> Para instalar el paquete que me acabo de descargar. Esta opeeración ha creado un usuario mongo en un grupo mongo
+4. **sudo systemctl status mongod** --> Para comprobar que mongo está instalado correctamente
+5. **sudosystemctl start mongod** ---> Para arrancar mongod
+6. **sudo systemctl status mongod** --> Para comprobar que mongo está arrancado (debe aparecer active ruunning)
+7. **sudo systemctl enable mongod** --> Para asegurarse de que mongod arranca solo cuando se reinicia el sistema 
+                
+
 
 ## DESPLEGAR APLICACIONES DE NODE
 
