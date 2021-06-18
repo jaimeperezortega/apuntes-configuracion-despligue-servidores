@@ -337,13 +337,7 @@ https://www.mongodb.com/try/download/community
 
 Es necesario que cuando desplegamos una aplicación de node en un servidor, utilizar una herramienta que es un gestor de procesos que está vigilando que todos los procesos que yo le indique estén arrancados. En el momento que detecta que un proceso está caido lo vuelve a arrancar de inmediato.
 
-#### Gestores de procesos:
 
-- Supervisor (hecho en Python)
-- PM2
-- Circus (hecho en Pyhton)
-
-Para que mi aplicación esté funcionando de manera autónoma sin tener que estar yo conectandome y haceer el npm start vamos a utilizar **SUPERVISOR** que es un gestor de procesos que se encarga de monitorizar que la aplicación esté corriendo, y si no es así, activarla.
 
 ### Pasos para desplegar una aplicación en Node
 
@@ -368,7 +362,7 @@ Para que mi aplicación esté funcionando de manera autónoma sin tener que esta
 2. **Comprobar status de supervisor** --> sudo service supervisor status
 3. **Crear un fichero de configuración** --> En la ruta /etc/supervisor/conf.d/ crear un fichero de configuración con el nombre que quieras pero con extensión .conf (sudo nano nodepop.conf)
    [program:nodepop]
-   command=/home/nodepop/.nvm/versions/node/v14.17.0/bin/node (**fichero que ejecuta el arranque de la aplicación-- se puede buscar con el comando which node**)
+   command=/home/nodepop/.nvm/versions/node/v14.17.1/bin/node ./bin/www (**fichero que ejecuta el arranque de la aplicación-- se puede buscar con el comando "which node"** Hay que iral package.json de esa aplicación, encontrar cuál esel comando arranca esa aplicacion en "start" y localizar la ruta absoluta de ese ejcutable con which y añadir el script que arranca la aplicación. En mi caso : /home/nodepop/.nvm/versions/node/v14.17.1/bin/node ./bin/www)
    user=nodepop (**usuario dueño de esa aplicación**)
    directory=/home/nodepop/recuperacion-practica-backend-avanzado2 (**directorio donde está instalada la aplicación**)
    autostart=true
